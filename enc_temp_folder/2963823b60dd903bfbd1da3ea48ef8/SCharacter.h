@@ -35,12 +35,8 @@ protected:
 	virtual void BeginPlay() override;
 
 	void MoveForward(float Value);
-	void MoveRight(float Value);
+	void MoveRight(float ValueX);
 	void PrimaryAttack();
-	void CheckJump();
-
-	UPROPERTY()
-		bool jumping;
 
 public:	
 	// Called every frame

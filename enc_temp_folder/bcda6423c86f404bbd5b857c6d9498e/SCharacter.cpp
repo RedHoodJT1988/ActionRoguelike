@@ -21,8 +21,6 @@ ASCharacter::ASCharacter()
 	CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
 	CameraComp->SetupAttachment(SpringArmComp);
 
-	jumping = false;
-
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
 	bUseControllerRotationYaw = false;
@@ -72,28 +70,10 @@ void ASCharacter::PrimaryAttack()
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 }
 
-void ASCharacter::CheckJump()
-{
-	if (jumping)
-	{
-		jumping = false;
-	}
-	else
-	{
-		jumping = true;
-	}
-}
-
-
 // Called every frame
 void ASCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (jumping)
-	{
-		Jump();
-	}
 
 }
 
@@ -113,8 +93,6 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 
 	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ASCharacter::CheckJump);
-	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ASCharacter::CheckJump);
 
 }
 
